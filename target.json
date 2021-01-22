@@ -23,8 +23,33 @@
     "option": "shampoo"
   },
   "order": {
-    "option": "Invoice Number",
-    "invoice_number": "test1234567890",
     "confirmation_page_url": "https://ccstore-test-zd3a.oracleoutsourcing.com/us/confirmation/"
+  },
+  "po_checkout": {
+    "option": "Invoice Number",
+    "invoice_number": "test1234567890"
+  },
+  "visa_checkout": {
+    "option": "visa ending in 1026"
+  },
+  "review": {
+    "option": "Mix Master",
+    "title": "12345",
+    "content": "abcdef",
+    "username": "name",
+    "email": "email@email.com"
+  },
+  "search_one_item": {
+    "option": "Pure Texture Molding Paste",
+    "url": "https://ccstore-test-zd3a.oracleoutsourcing.com/us/pure-texture-molding-paste/product/140624"
+  },
+  "new_address": {
+    "nickname": "TestUser",
+    "company_name": "company",
+    "phone_number": "26821488228",
+    "address": "Eisenstadt, Florianigasse, 10",
+    "city": "Eisenstadt",
+    "zip_code": "7000",
+    "county": "Burgenland"
   }
 }

@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from webium import BasePage, Find, Finds
 from webium.wait import wait
-from selenium.webdriver.support.select import Select
 
 
 class OrderPage(BasePage):

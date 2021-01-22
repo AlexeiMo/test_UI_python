@@ -49,7 +49,7 @@ class HomePage(BasePage):
 
     def click_category_link(self, name):
         for category in self.categories_links:
-            wait(category.is_displayed)
+            # wait(category.is_displayed)
             if category.text == name:
                 category.click()
                 break
@@ -58,7 +58,7 @@ class HomePage(BasePage):
 
     def click_subcategory_link(self, name):
         for subcategory in self.subcategories_links:
-            wait(subcategory.is_displayed)
+            # wait(subcategory.is_displayed)
             if subcategory.text == name:
                 subcategory.click()
                 break

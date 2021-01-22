@@ -8,6 +8,8 @@ from actions.home_page import HomePageActions
 from actions.login import LoginActions
 from actions.shop import ShopActions
 from actions.order import OrderActions
+from actions.review import ReviewActions
+from actions.new_address import NewAddressActions
 
 LOGGER_SELENIUM = logging.getLogger('seleniumwire')
 LOGGER_SELENIUM.setLevel(logging.ERROR)
@@ -21,7 +23,7 @@ class Application:
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless')
+            # chrome_options.add_argument('--headless')
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-application-cache")
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -51,6 +53,8 @@ class Application:
         self.login_actions = LoginActions(self)
         self.shop_actions = ShopActions(self)
         self.order_actions = OrderActions(self)
+        self.review_actions = ReviewActions(self)
+        self.new_address_actions = NewAddressActions(self)
         self.driver.request_interceptor = self.interceptor
         self.base_url = base_url
         self.config = config

@@ -12,12 +12,9 @@ class ShopPage(BasePage):
         by=By.XPATH,
         value="//div[@class='searchAndSort-container']/div/h1[@class='head_section']"
     )
-    view_more_button = Find(
+    actual_products_num_info = Find(
         by=By.XPATH,
-        value="//button[.='View More']")
-    result_products = Finds(
-        by=By.CSS_SELECTOR,
-        value="div[class='thumbnail_container_outer']"
+        value="//div[@class='displayedProductCount col-xs-12']/p"
     )
     add_product_links = Finds(
         by=By.XPATH,
@@ -37,13 +34,6 @@ class ShopPage(BasePage):
         wait(self.search_results_info.is_displayed)
         return self.search_results_info.text.split(sep=" ")[0]
 
-    def click_view_more(self):
-        wait(self.view_more_button)
-        self.view_more_button.click()
-
-    def get_expected_product_num(self):
-        return len(self.result_products)
-
     def click_buy_product_link(self, index):
         wait(self.add_product_links[index].is_displayed)
         self.add_product_links[index].click()
@@ -55,3 +45,8 @@ class ShopPage(BasePage):
     def click_checkout_button(self):
         wait(self.checkout_button.is_displayed)
         self.checkout_button.click()
+
+    def get_actual_product_num(self):
+        wait(self.actual_products_num_info.is_displayed)
+        actual_product_num = self.actual_products_num_info.text.split(sep=" ")[4]
+        return actual_product_num

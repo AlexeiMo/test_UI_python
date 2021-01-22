@@ -5,6 +5,7 @@ from pages.base_page_object import BasePageObject
 from pages.shop_page import ShopPage
 import allure
 from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
 
 LOGGER = logging.getLogger(__name__)
 
@@ -29,12 +30,7 @@ class ShopActions(BasePage, BasePageObject):
     def verify_search_results_info(self):
         LOGGER.info("Verify search results info")
         product_num = self.shop_actions.get_search_results_product_num()
-        # while True:
-        #     while not self.shop_actions.view_more_button.is_displayed():
-        #         ActionChains(driver=self.driver).send_keys('ue015').perform()
-        # while self.shop_actions.view_more_button.is_displayed():
-        #     self.shop_actions.click_view_more()
-        actual_product_num = self.shop_actions.get_product_num()
+        actual_product_num = self.shop_actions.get_actual_product_num()
         assert product_num == actual_product_num, f"Test search failed. " \
                                                   f"Expected result product's num: {product_num}, " \
                                                   f"Actual result product's' num: {actual_product_num}"
@@ -49,3 +45,10 @@ class ShopActions(BasePage, BasePageObject):
         LOGGER.info("Open order menu")
         self.shop_actions.click_cart_icon()
         self.shop_actions.click_checkout_button()
+
+    @allure.step("Verify search for one item")
+    def verify_search_one_item(self, url):
+        LOGGER.info("Verify search for one item")
+        assert self.driver.current_url == url, f"Test search one item failed. " \
+                                               f"Expected url: {url}, " \
+                                               f"Actual url: {self.driver.current_url}"
