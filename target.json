@@ -1,0 +1,30 @@
+{
+  "web": {
+    "baseUrl": "https://ccstore-test-zd3a.oracleoutsourcing.com/"
+  },
+  "basic_auth": {
+    "username": "",
+    "password": ""
+  },
+  "login": {
+    "email": "",
+    "password": "",
+    "wrong_email": "testtest@test.com",
+    "wrong_password": "test_password"
+  },
+  "home_page": {
+    "category_name": "SHOP",
+    "subcategory_name": "Catwalk"
+  },
+  "shop": {
+    "default_option": "BEST SELLERS"
+  },
+  "search": {
+    "option": "shampoo"
+  },
+  "order": {
+    "option": "Invoice Number",
+    "invoice_number": "test1234567890",
+    "confirmation_page_url": "https://ccstore-test-zd3a.oracleoutsourcing.com/us/confirmation/"
+  }
+}
