@@ -44,14 +44,13 @@
     "url": "https://ccstore-test-zd3a.oracleoutsourcing.com/us/pure-texture-molding-paste/product/140624"
   },
   "new_address": {
-    "nickname": "TestUser",
     "company_name": "company",
     "phone_number": "26821488228",
     "address": "77 Massachusetts Avenue",
     "city": "Cambridge",
+    "state": "Massachusetts",
     "zip_code": "02139",
     "county": "Middlesex",
-    "state": "MA",
-    "country": "US"
+    "country": "United States"
   }
 }

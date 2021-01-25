@@ -2,6 +2,7 @@ import pytest
 from time import sleep
 
 
+# PLP - Product Listing Page
 @pytest.mark.plp
 class TestPLPSuite:
 
@@ -9,7 +10,6 @@ class TestPLPSuite:
     def test_default_sort_option(self, app):
         app.navigate_to_home_page()
         app.authorize()
-        sleep(5)
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
@@ -24,7 +24,6 @@ class TestPLPSuite:
     def test_search(self, app):
         app.navigate_to_home_page()
         app.authorize()
-        sleep(5)
         app.home_page_actions.search_item(
             option=app.config["search"]["option"]
         )

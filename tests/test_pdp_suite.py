@@ -2,6 +2,7 @@ import pytest
 from time import sleep
 
 
+# PDP - Product Detail Page
 @pytest.mark.pdp
 class TestPDPSuite:
 
@@ -9,7 +10,6 @@ class TestPDPSuite:
     def test_create_review(self, app):
         app.navigate_to_home_page()
         app.authorize()
-        sleep(5)
         app.home_page_actions.search_item(
             option=app.config["review"]["option"]
         )

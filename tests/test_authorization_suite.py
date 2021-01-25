@@ -1,5 +1,4 @@
 import pytest
-from time import sleep
 
 
 @pytest.mark.auth
@@ -20,7 +19,6 @@ class TestAuthorizationSuite:
     def test_invalid_login(self, app):
         app.navigate_to_home_page()
         app.authorize()
-        sleep(5)
         app.home_page_actions.logout()
         app.home_page_actions.open_login_frame()
         app.login_actions.type_credentials(
@@ -34,6 +32,5 @@ class TestAuthorizationSuite:
     def test_logout(self, app):
         app.navigate_to_home_page()
         app.authorize()
-        sleep(5)
         app.home_page_actions.logout()
         app.home_page_actions.verify_logout()

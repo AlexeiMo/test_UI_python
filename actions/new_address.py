@@ -3,6 +3,7 @@ import allure
 from pages.base_page_object import BasePageObject
 from webium import BasePage
 from pages.new_address_page import NewAddressPage
+from utilities.string_utility import get_random_string
 
 LOGGER = logging.getLogger(__name__)
 
@@ -21,15 +22,38 @@ class NewAddressActions(BasePage, BasePageObject):
         self.new_address_actions.click_add_new_address_button()
 
     @allure.step("Fill in new address info")
-    def fill_in_new_address(self, nickname, company_name, phone_number, address, city, zip_code, county):
+    def fill_in_new_address(self, company_name, phone_number, address, city, state, zip_code, county,
+                            country, nickname=None):
         LOGGER.info("Fill in new address info")
-        self.new_address_actions.type_new_address_nickname(value=nickname)
-        self.new_address_actions.type_new_address_company_name(value=company_name)
-        self.new_address_actions.type_new_address_phone_number(value=phone_number)
-        self.new_address_actions.type_new_address(value=address)
-        self.new_address_actions.type_new_address_city(value=city)
-        self.new_address_actions.type_new_address_zip_code(value=zip_code)
-        self.new_address_actions.type_new_address_county(value=county)
+        if nickname is None:
+            nickname = get_random_string(8)
+        self.new_address_actions.type_new_address_nickname(
+            value=nickname
+        )
+        self.new_address_actions.type_new_address_company_name(
+            value=company_name
+        )
+        self.new_address_actions.type_new_address_phone_number(
+            value=phone_number
+        )
+        self.new_address_actions.type_new_address(
+            value=address
+        )
+        self.new_address_actions.type_new_address_city(
+            value=city
+        )
+        self.new_address_actions.type_new_address_country(
+            value=country
+        )
+        self.new_address_actions.type_new_address_state(
+            value=state
+        )
+        self.new_address_actions.type_new_address_zip_code(
+            value=zip_code
+        )
+        self.new_address_actions.type_new_address_county(
+            value=county
+        )
         self.new_address_actions.click_ship_to_new_address_option()
         self.new_address_actions.click_bill_to_new_address_option()
 

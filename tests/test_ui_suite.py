@@ -10,4 +10,3 @@ class TestUISuite(object):
         app.home_page_actions.verify_url(
             url=app.config["web"]["baseUrl"]
         )
-        app.home_page_actions.verify_page_content()

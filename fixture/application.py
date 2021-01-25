@@ -10,6 +10,7 @@ from actions.shop import ShopActions
 from actions.order import OrderActions
 from actions.review import ReviewActions
 from actions.new_address import NewAddressActions
+from actions.order_summary import OrderSummaryActions
 from time import sleep
 
 LOGGER_SELENIUM = logging.getLogger('seleniumwire')
@@ -24,7 +25,7 @@ class Application:
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
-            # chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--headless')
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-application-cache")
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -56,6 +57,7 @@ class Application:
         self.order_actions = OrderActions(self)
         self.review_actions = ReviewActions(self)
         self.new_address_actions = NewAddressActions(self)
+        self.order_summary_actions = OrderSummaryActions(self)
         self.driver.request_interceptor = self.interceptor
         self.base_url = base_url
         self.config = config
@@ -68,7 +70,6 @@ class Application:
         LOGGER.info("Open url '%s'", self.base_url)
 
     def authorize(self):
-        # import pdb; pdb.set_trace()
         if not self.is_logged:
             self.home_page_actions.open_login_frame()
             self.login_actions.type_credentials(
@@ -77,6 +78,7 @@ class Application:
             )
             self.login_actions.submit_credentials()
             self.is_logged = True
+            sleep(5)
 
     def destroy(self):
         # Stop the browser

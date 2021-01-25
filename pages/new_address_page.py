@@ -32,6 +32,10 @@ class NewAddressPage(BasePage):
         by=By.ID,
         value="cityNew"
     )
+    new_address_state_field = Find(
+        by=By.ID,
+        value="stateNew"
+    )
     new_address_zip_code_field = Find(
         by=By.ID,
         value="zipNew"
@@ -40,13 +44,17 @@ class NewAddressPage(BasePage):
         by=By.ID,
         value="countyNew"
     )
-    bill_to_new_address_option = Find(
+    new_address_country_field = Find(
         by=By.ID,
-        value="billToThisAddress"
+        value="countryNew"
+    )
+    bill_to_new_address_option = Find(
+        by=By.XPATH,
+        value="//input[@id='billToThisAddress']/../label/div"
     )
     ship_to_new_address_option = Find(
-        by=By.ID,
-        value="shipToThisAddress"
+        by=By.XPATH,
+        value="//input[@id='shipToThisAddress']/../label/div"
     )
     save_new_address_button = Find(
         by=By.XPATH,
@@ -81,6 +89,10 @@ class NewAddressPage(BasePage):
         wait(self.new_address_city_field.is_displayed)
         self.new_address_city_field.send_keys(value)
 
+    def type_new_address_state(self, value):
+        wait(self.new_address_state_field.is_displayed)
+        self.new_address_state_field.send_keys(value)
+
     def type_new_address_zip_code(self, value):
         wait(self.new_address_zip_code_field.is_displayed)
         self.new_address_zip_code_field.send_keys(value)
@@ -88,6 +100,10 @@ class NewAddressPage(BasePage):
     def type_new_address_county(self, value):
         wait(self.new_address_county_field.is_displayed)
         self.new_address_county_field.send_keys(value)
+
+    def type_new_address_country(self, value):
+        wait(self.new_address_country_field.is_displayed)
+        self.new_address_country_field.send_keys(value)
 
     def click_ship_to_new_address_option(self):
         wait(self.ship_to_new_address_option.is_displayed)

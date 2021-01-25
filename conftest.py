@@ -31,7 +31,7 @@ def app(request, config):
     return fixture
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def stop(request):
     def fin():
         fixture.destroy()

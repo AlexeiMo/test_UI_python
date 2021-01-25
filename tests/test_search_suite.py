@@ -9,7 +9,6 @@ class TestSearchSuite:
     def test_search_one_item(self, app):
         app.navigate_to_home_page()
         app.authorize()
-        sleep(5)
         app.home_page_actions.search_item(
             option=app.config["search_one_item"]["option"]
         )

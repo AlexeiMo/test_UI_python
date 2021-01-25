@@ -69,7 +69,8 @@ class HomePageActions(BasePage, BasePageObject):
     @allure.step("Open login frame")
     def open_login_frame(self):
         LOGGER.info("Open login frame")
-        self.home_page_actions.click_login_button()
+        if not self.home_page_actions.login_frame.is_displayed():
+            self.home_page_actions.click_login_button()
 
     @allure.step("Verify logout process")
     def verify_logout(self):

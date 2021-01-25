@@ -4,7 +4,6 @@ from webium import BasePage
 from pages.base_page_object import BasePageObject
 from pages.shop_page import ShopPage
 import allure
-from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
 LOGGER = logging.getLogger(__name__)
@@ -39,6 +38,7 @@ class ShopActions(BasePage, BasePageObject):
     def add_product_to_cart(self, index):
         LOGGER.info("Add specified product to cart")
         self.shop_actions.click_buy_product_link(index)
+        sleep(1)
 
     @allure.step("Open order menu")
     def open_order_menu(self):
