@@ -36,12 +36,14 @@ class HomePageActions(BasePage, BasePageObject):
         assert self.home_page_actions.account_icon.is_displayed(), "Login failed."
         assert self.home_page_actions.welcome_text.is_displayed(), "Login failed."
         assert self.home_page_actions.cart_icon.is_displayed(), "Login failed."
+        self.app.is_logged = True
 
     @allure.step("Logout user from site")
     def logout(self):
         LOGGER.info("Logout user from site")
         self.home_page_actions.click_account_settings()
         self.home_page_actions.click_logout_link()
+        self.app.is_logged = False
 
     @allure.step("Verify invalid login process")
     def verify_invalid_login(self):

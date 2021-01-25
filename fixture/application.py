@@ -10,6 +10,7 @@ from actions.shop import ShopActions
 from actions.order import OrderActions
 from actions.review import ReviewActions
 from actions.new_address import NewAddressActions
+from time import sleep
 
 LOGGER_SELENIUM = logging.getLogger('seleniumwire')
 LOGGER_SELENIUM.setLevel(logging.ERROR)
@@ -58,19 +59,24 @@ class Application:
         self.driver.request_interceptor = self.interceptor
         self.base_url = base_url
         self.config = config
+        self.is_logged = False
 
     def navigate_to_home_page(self):
         driver = self.driver
         driver.get(self.base_url)
+        sleep(5)
         LOGGER.info("Open url '%s'", self.base_url)
 
     def authorize(self):
-        self.home_page_actions.open_login_frame()
-        self.login_actions.type_credentials(
-            email=self.config["login"]["email"],
-            password=self.config["login"]["password"]
-        )
-        self.login_actions.submit_credentials()
+        # import pdb; pdb.set_trace()
+        if not self.is_logged:
+            self.home_page_actions.open_login_frame()
+            self.login_actions.type_credentials(
+                email=self.config["login"]["email"],
+                password=self.config["login"]["password"]
+            )
+            self.login_actions.submit_credentials()
+            self.is_logged = True
 
     def destroy(self):
         # Stop the browser

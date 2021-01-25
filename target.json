@@ -47,9 +47,11 @@
     "nickname": "TestUser",
     "company_name": "company",
     "phone_number": "26821488228",
-    "address": "Eisenstadt, Florianigasse, 10",
-    "city": "Eisenstadt",
-    "zip_code": "7000",
-    "county": "Burgenland"
+    "address": "77 Massachusetts Avenue",
+    "city": "Cambridge",
+    "zip_code": "02139",
+    "county": "Middlesex",
+    "state": "MA",
+    "country": "US"
   }
 }
