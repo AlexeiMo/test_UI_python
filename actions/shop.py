@@ -4,7 +4,6 @@ from webium import BasePage
 from pages.base_page_object import BasePageObject
 from pages.shop_page import ShopPage
 import allure
-from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 

@@ -4,7 +4,6 @@ from webium import BasePage
 from pages.base_page_object import BasePageObject
 from pages.home_page import HomePage
 import allure
-from time import sleep
 
 LOGGER = logging.getLogger(__name__)
 
@@ -26,7 +25,6 @@ class HomePageActions(BasePage, BasePageObject):
     @allure.step("Verify content of home page")
     def verify_page_content(self):
         LOGGER.info("Verify content of home page")
-        sleep(15)
         assert self.home_page_actions.login_frame.is_displayed(), "Test navigate to home page failed. " \
                                                                   "Login frame is not displayed."
 
