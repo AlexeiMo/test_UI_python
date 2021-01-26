@@ -28,6 +28,7 @@ class ShopActions(BasePage, BasePageObject):
     @allure.step("Verify search results info")
     def verify_search_results_info(self):
         LOGGER.info("Verify search results info")
+
         product_num = self.shop_actions.get_search_results_product_num()
         actual_product_num = self.shop_actions.get_actual_product_num()
         assert product_num == actual_product_num, f"Test search failed. " \

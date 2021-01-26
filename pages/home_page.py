@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from webium import BasePage, Find, Finds
 from webium.wait import wait
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 
 class HomePage(BasePage):
@@ -48,8 +50,10 @@ class HomePage(BasePage):
     )
 
     def click_category_link(self, name):
-        for category in self.categories_links:
-            # wait(category.is_displayed)
+        links = WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(
+            (By.XPATH, "//ul[@class='header__nav-links js-mega-menu-links']/li/a")
+        ))
+        for category in links:
             if category.text == name:
                 category.click()
                 break
@@ -57,10 +61,14 @@ class HomePage(BasePage):
             raise Exception("No such category found")
 
     def click_subcategory_link(self, name):
-        for subcategory in self.subcategories_links:
-            # wait(subcategory.is_displayed)
+        url = self._driver.current_url
+        links = WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(
+            (By.XPATH, "//div[@class='shop-links-list']/ul/li/a")
+        ))
+        for subcategory in links:
             if subcategory.text == name:
                 subcategory.click()
+                WebDriverWait(self._driver, 10).until(ec.url_changes(url))
                 break
         else:
             raise Exception("No such subcategory found")
@@ -71,7 +79,9 @@ class HomePage(BasePage):
 
     def click_search_button(self):
         wait(self.search_button.is_displayed)
+        url = self._driver.current_url
         self.search_button.click()
+        WebDriverWait(self._driver, 15).until(ec.url_changes(url))
 
     def click_logout_link(self):
         wait(self.log_out_link.is_displayed)

@@ -82,8 +82,7 @@ class Application:
             )
             self.login_actions.submit_credentials()
             self.is_logged = True
-            logo = WebDriverWait(self.driver, 5).until(
-                ec.visibility_of_element_located((By.CSS_SELECTOR, "div[class='col-xs-12 tigi-header']")))
+            WebDriverWait(self.driver, 5).until(ec.url_to_be("https://ccstore-test-zd3a.oracleoutsourcing.com/us/home"))
 
     def destroy(self):
         # Stop the browser

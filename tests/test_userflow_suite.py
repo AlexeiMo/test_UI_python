@@ -12,15 +12,14 @@ class TestUserflowSuite:
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
-        sleep(3)
         app.home_page_actions.navigate_to_subcategory(
             name=app.config["home_page"]["subcategory_name"]
         )
-        sleep(5)
+        sleep(9)
         app.shop_actions.add_product_to_cart(index=0)
         app.shop_actions.add_product_to_cart(index=1)
         app.shop_actions.open_order_menu()
-        sleep(5)
+        # sleep(5)
         app.order_actions.select_payment_method_option(
             option_text=app.config["po_checkout"]["option"]
         )
@@ -42,11 +41,9 @@ class TestUserflowSuite:
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
-        sleep(3)
         app.home_page_actions.navigate_to_subcategory(
             name=app.config["home_page"]["subcategory_name"]
         )
-        sleep(5)
         app.shop_actions.add_product_to_cart(index=0)
         app.shop_actions.add_product_to_cart(index=1)
         app.shop_actions.open_order_menu()
@@ -69,11 +66,9 @@ class TestUserflowSuite:
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
-        sleep(3)
         app.home_page_actions.navigate_to_subcategory(
             name=app.config["home_page"]["subcategory_name"]
         )
-        sleep(5)
         app.shop_actions.add_product_to_cart(index=0)
         app.shop_actions.add_product_to_cart(index=1)
         app.shop_actions.open_order_menu()
