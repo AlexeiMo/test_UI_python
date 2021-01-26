@@ -27,5 +27,4 @@ class TestPLPSuite:
         app.home_page_actions.search_item(
             option=app.config["search"]["option"]
         )
-        # sleep(5)
         app.shop_actions.verify_search_results_info()

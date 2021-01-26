@@ -5,6 +5,8 @@ from pages.base_page_object import BasePageObject
 from pages.shop_page import ShopPage
 import allure
 from time import sleep
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 LOGGER = logging.getLogger(__name__)
 
@@ -50,6 +52,8 @@ class ShopActions(BasePage, BasePageObject):
     @allure.step("Verify search for one item")
     def verify_search_one_item(self, url):
         LOGGER.info("Verify search for one item")
+        old_url = self.driver.current_url
+        WebDriverWait(self.driver, 10).until(ec.url_changes(old_url))
         assert self.driver.current_url == url, f"Test search one item failed. " \
                                                f"Expected url: {url}, " \
                                                f"Actual url: {self.driver.current_url}"

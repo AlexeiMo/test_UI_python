@@ -3,7 +3,8 @@ import logging
 from pages.base_page_object import BasePageObject
 from pages.review_page import ReviewPage
 from webium import BasePage
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 LOGGER = logging.getLogger(__name__)
 
@@ -45,6 +46,3 @@ class ReviewActions(BasePage, BasePageObject):
         assert review_content == content, f"Test create review failed. " \
                                           f"Expected review content: {content}, " \
                                           f"Actual review content: {review_content}"
-
-    # def scroll_down(self):
-    #     ActionChains(driver=self.driver).send_keys('ue015').perform()
