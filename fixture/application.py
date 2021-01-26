@@ -11,7 +11,9 @@ from actions.order import OrderActions
 from actions.review import ReviewActions
 from actions.new_address import NewAddressActions
 from actions.order_summary import OrderSummaryActions
-from time import sleep
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
 
 LOGGER_SELENIUM = logging.getLogger('seleniumwire')
 LOGGER_SELENIUM.setLevel(logging.ERROR)
@@ -19,13 +21,14 @@ LOGGER = logging.getLogger(__name__)
 
 
 class Application:
+
     def __init__(self, browser, base_url, config):
         # Set browser
         if browser == "firefox":
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless')
+            # chrome_options.add_argument('--headless')
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-application-cache")
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -66,7 +69,8 @@ class Application:
     def navigate_to_home_page(self):
         driver = self.driver
         driver.get(self.base_url)
-        sleep(5)
+        logo = WebDriverWait(self.driver, 5).until(
+            ec.visibility_of_element_located((By.CSS_SELECTOR, "div[class='col-xs-12 tigi-header']")))
         LOGGER.info("Open url '%s'", self.base_url)
 
     def authorize(self):
@@ -78,7 +82,8 @@ class Application:
             )
             self.login_actions.submit_credentials()
             self.is_logged = True
-            sleep(5)
+            logo = WebDriverWait(self.driver, 5).until(
+                ec.visibility_of_element_located((By.CSS_SELECTOR, "div[class='col-xs-12 tigi-header']")))
 
     def destroy(self):
         # Stop the browser
