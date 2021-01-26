@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from webium import BasePage, Find, Finds
 from webium.wait import wait
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 
 class ReviewPage(BasePage):
@@ -42,6 +44,9 @@ class ReviewPage(BasePage):
     )
 
     def click_create_review_button(self):
+        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+            (By.XPATH, "//span[.='Write A Review']/..")
+        ))
         wait(self.create_review_button.is_displayed)
         self.create_review_button.click()
 

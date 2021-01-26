@@ -28,7 +28,7 @@ class Application:
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
-            # chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--headless')
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-application-cache")
             chrome_options.add_argument("--disable-dev-shm-usage")

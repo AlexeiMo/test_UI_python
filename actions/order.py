@@ -50,3 +50,13 @@ class OrderActions(BasePage, BasePageObject):
         assert url in self.driver.current_url, f"Test create order failed." \
                                                f"Expected url: {url}, " \
                                                f"Actual url: {self.driver.current_url}"
+
+    @allure.step("Wait for PDP loaded")
+    def wait_for_pdp_loaded(self):
+        LOGGER.info("Wait for PDP loaded")
+        self.order_actions.wait_for_pdp_loaded()
+
+    @allure.step("Wait for order confirmation")
+    def wait_for_order_confirmation(self):
+        LOGGER.info("Wait for order confirmation")
+        self.order_actions.wait_for_order_confirmation()

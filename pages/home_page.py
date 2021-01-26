@@ -94,3 +94,9 @@ class HomePage(BasePage):
     def click_login_button(self):
         wait(self.login_button.is_displayed)
         self.login_button.click()
+
+    def is_invalid_login_message_displayed(self):
+        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+            (By.CSS_SELECTOR, "span[data-bind='text: $parent.loginMessage']")
+        ))
+        return self.invalid_login_message.is_displayed()

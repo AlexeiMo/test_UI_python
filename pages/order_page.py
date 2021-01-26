@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from webium import BasePage, Find, Finds
 from webium.wait import wait
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 
 class OrderPage(BasePage):
@@ -34,13 +36,22 @@ class OrderPage(BasePage):
         value="//span[.='Place Order']/.."
     )
 
+    print_confirmation_button = Find(
+        by=By.XPATH,
+        value="//button[.='Print Confirmation']"
+    )
+
     def click_payment_method_button(self):
-        wait(self.payment_method_button.is_displayed)
+        WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Select New Payment Method']/..")
+        ))
         self.payment_method_button.click()
 
     def choose_payment_method_option(self, option_text):
+        WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(
+            (By.CSS_SELECTOR, "li[class='g-fancy-dropdown__item']")
+        ))
         for option in self.payment_method_options:
-            wait(option.is_displayed)
             if option.text == option_text:
                 option.click()
                 break
@@ -56,7 +67,10 @@ class OrderPage(BasePage):
         self.submit_po_number_button.click()
 
     def click_change_shipping_address_button(self):
-        wait(self.change_shipping_address_button.is_displayed)
+        # wait(self.change_shipping_address_button.is_displayed)
+        WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
+            (By.XPATH, "//button[.='Change Shipping Address']")
+        ))
         self.change_shipping_address_button.click()
 
     def click_address_option(self):
@@ -64,9 +78,24 @@ class OrderPage(BasePage):
         self.address_option.click()
 
     def click_change_billing_address_button(self):
-        wait(self.change_billing_address_button.is_displayed)
+        WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
+            (By.XPATH, "//button[.='Change Billing Address']")
+        ))
         self.change_billing_address_button.click()
 
     def click_place_order_button(self):
         wait(self.place_order_button.is_displayed)
+        WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Place Order']/..")
+        ))
         self.place_order_button.click()
+
+    def wait_for_pdp_loaded(self):
+        WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Place Order']/..")
+        ))
+
+    def wait_for_order_confirmation(self):
+        WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
+            (By.XPATH, "//button[.='Print Confirmation']")
+        ))

@@ -15,11 +15,10 @@ class TestUserflowSuite:
         app.home_page_actions.navigate_to_subcategory(
             name=app.config["home_page"]["subcategory_name"]
         )
-        sleep(9)
-        app.shop_actions.add_product_to_cart(index=0)
+        app.shop_actions.wait_for_plp_loaded()
         app.shop_actions.add_product_to_cart(index=1)
         app.shop_actions.open_order_menu()
-        # sleep(5)
+        app.order_actions.wait_for_pdp_loaded()
         app.order_actions.select_payment_method_option(
             option_text=app.config["po_checkout"]["option"]
         )
@@ -27,9 +26,8 @@ class TestUserflowSuite:
             po_number=app.config["po_checkout"]["invoice_number"]
         )
         app.order_actions.set_checkout_options()
-        sleep(7)
         app.order_actions.accept_order_info()
-        sleep(5)
+        app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(
             url=app.config["order"]["confirmation_page_url"]
         )
@@ -44,17 +42,16 @@ class TestUserflowSuite:
         app.home_page_actions.navigate_to_subcategory(
             name=app.config["home_page"]["subcategory_name"]
         )
-        app.shop_actions.add_product_to_cart(index=0)
+        app.shop_actions.wait_for_plp_loaded()
         app.shop_actions.add_product_to_cart(index=1)
         app.shop_actions.open_order_menu()
-        sleep(5)
+        app.order_actions.wait_for_pdp_loaded()
         app.order_actions.select_payment_method_option(
             option_text=app.config["visa_checkout"]["option"]
         )
         app.order_actions.set_checkout_options()
-        sleep(7)
         app.order_actions.accept_order_info()
-        sleep(5)
+        app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(
             url=app.config["order"]["confirmation_page_url"]
         )
@@ -69,10 +66,10 @@ class TestUserflowSuite:
         app.home_page_actions.navigate_to_subcategory(
             name=app.config["home_page"]["subcategory_name"]
         )
-        app.shop_actions.add_product_to_cart(index=0)
+        app.shop_actions.wait_for_plp_loaded()
         app.shop_actions.add_product_to_cart(index=1)
         app.shop_actions.open_order_menu()
-        sleep(5)
+        app.order_actions.wait_for_pdp_loaded()
         app.order_actions.select_payment_method_option(
             option_text=app.config["visa_checkout"]["option"]
         )
@@ -88,9 +85,8 @@ class TestUserflowSuite:
             country=app.config["new_address"]["country"]
         )
         app.new_address_actions.save_new_address()
-        sleep(7)
         app.order_actions.accept_order_info()
-        sleep(5)
+        app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(
             url=app.config["order"]["confirmation_page_url"]
         )

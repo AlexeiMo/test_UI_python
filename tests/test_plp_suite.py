@@ -1,5 +1,4 @@
 import pytest
-from time import sleep
 
 
 # PLP - Product Listing Page

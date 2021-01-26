@@ -48,7 +48,8 @@ class HomePageActions(BasePage, BasePageObject):
     @allure.step("Verify invalid login process")
     def verify_invalid_login(self):
         LOGGER.info("Verify invalid login process")
-        assert self.home_page_actions.invalid_login_message.is_displayed()
+        assert self.home_page_actions.is_invalid_login_message_displayed(), "Test invalid login failed. " \
+                                                                            "No invalid login message was shown"
 
     @allure.step("Navigate to specified category")
     def navigate_to_category(self, name):

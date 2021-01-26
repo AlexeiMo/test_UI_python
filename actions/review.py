@@ -3,8 +3,6 @@ import logging
 from pages.base_page_object import BasePageObject
 from pages.review_page import ReviewPage
 from webium import BasePage
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 
 LOGGER = logging.getLogger(__name__)
 

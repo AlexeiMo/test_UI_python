@@ -30,18 +30,21 @@ class ShopActions(BasePage, BasePageObject):
     @allure.step("Verify search results info")
     def verify_search_results_info(self):
         LOGGER.info("Verify search results info")
-
         product_num = self.shop_actions.get_search_results_product_num()
         actual_product_num = self.shop_actions.get_actual_product_num()
         assert product_num == actual_product_num, f"Test search failed. " \
                                                   f"Expected result product's num: {product_num}, " \
                                                   f"Actual result product's' num: {actual_product_num}"
 
+    @allure.step("Wait for PLP loaded")
+    def wait_for_plp_loaded(self):
+        LOGGER.info("Wait for PLP loaded")
+        self.shop_actions.wait_for_plp_loaded()
+
     @allure.step("Add specified product to cart")
     def add_product_to_cart(self, index):
         LOGGER.info("Add specified product to cart")
         self.shop_actions.click_buy_product_link(index)
-        sleep(1)
 
     @allure.step("Open order menu")
     def open_order_menu(self):

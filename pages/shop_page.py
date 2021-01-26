@@ -20,23 +20,28 @@ class ShopPage(BasePage):
     )
     add_product_links = Finds(
         by=By.XPATH,
-        value="//button/span[.='Add to bag']/.."
+        value="//button/span[.='Add to bag']"
     )
     cart_icon = Find(
         by=By.CSS_SELECTOR,
         value="span[class='tigi-header__bag-icon__label']"
     )
     checkout_button = Find(by=By.XPATH, value="//a[.='Checkout']")
+    product_listing = Find(
+        by=By.CSS_SELECTOR,
+        value="div[class='thumbnail_wrap thumbnails']"
+    )
 
     def get_dropdown_option(self):
-        wait(self.dropdown_option.is_displayed)
+        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+            (By.CSS_SELECTOR, "span[data-bind='text: title']")
+        ))
         return self.dropdown_option.text
 
     def get_search_results_product_num(self):
         WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
-            (By.CSS_SELECTOR, "span[data-bind='text: title']")
+            (By.XPATH, "//div[@class='searchAndSort-container']/div/h1[@class='head_section']")
         ))
-        wait(self.search_results_info.is_displayed)
         return self.search_results_info.text.split(sep=" ")[0]
 
     def click_buy_product_link(self, index):
@@ -45,9 +50,8 @@ class ShopPage(BasePage):
         ))
         quantity = str(int(self.cart_icon.text) + 1)
 
-        # WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(
-        #     (By.XPATH, "//button/span[.='Add to bag']/..")
-        # ))
+        wait(lambda: len(self.add_product_links) > 0)
+
         self.add_product_links[index].click()
         WebDriverWait(self._driver, 10).until(ec.text_to_be_present_in_element(
             (By.CSS_SELECTOR, "span[class='tigi-header__bag-icon__label']"), quantity
@@ -59,7 +63,9 @@ class ShopPage(BasePage):
 
     def click_checkout_button(self):
         url = self._driver.current_url
-        wait(self.checkout_button.is_displayed)
+        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+            (By.XPATH, "//a[.='Checkout']")
+        ))
         self.checkout_button.click()
         WebDriverWait(self._driver, 10).until(ec.url_changes(url))
 
@@ -67,3 +73,8 @@ class ShopPage(BasePage):
         wait(self.actual_products_num_info.is_displayed)
         actual_product_num = self.actual_products_num_info.text.split(sep=" ")[4]
         return actual_product_num
+
+    def wait_for_plp_loaded(self):
+        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+            (By.CSS_SELECTOR, "div[class='thumbnail_wrap thumbnails']")
+        ))

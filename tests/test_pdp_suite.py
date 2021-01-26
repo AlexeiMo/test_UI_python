@@ -1,5 +1,4 @@
 import pytest
-from time import sleep
 
 
 # PDP - Product Detail Page
@@ -13,7 +12,6 @@ class TestPDPSuite:
         app.home_page_actions.search_item(
             option=app.config["review"]["option"]
         )
-        sleep(7)
         app.review_actions.open_review_form()
         app.review_actions.fill_in_review(
             title=app.config["review"]["title"],
