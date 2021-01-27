@@ -45,7 +45,7 @@ class OrderPage(BasePage):
         WebDriverWait(self._driver, 10).until(ec.element_to_be_clickable(
             (By.XPATH, "//span[.='Select New Payment Method']/..")
         ))
-        self.payment_method_button.click()
+        self._driver.find_element_by_xpath("//span[.='Select New Payment Method']/..").click()
 
     def choose_payment_method_option(self, option_text):
         WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(

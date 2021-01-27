@@ -28,7 +28,7 @@ class Application:
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless')
+            # chrome_options.add_argument('--headless')
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-application-cache")
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -37,7 +37,7 @@ class Application:
             chrome_options.add_argument('--window-size=1920,1080')
             # chrome_options.add_argument("--log-level=3")
             driver_folder = Path("../data")
-            file_to_open = driver_folder / "chromedriver.exe"
+            file_to_open = str(driver_folder / "chromedriver.exe")
             self.driver = webdriver.Chrome(options=chrome_options,
                                            executable_path=file_to_open)
         elif browser == "ie":
@@ -45,7 +45,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         # Sets a sticky timeout to implicitly wait for an element to be found
-        self.driver.implicitly_wait(3)
+        # self.driver.implicitly_wait(3)
         webium.settings.wait_timeout = 5
         # Invokes the window manager-specific 'full screen' operation
         LOGGER.info("Expand browser to full screen")
@@ -65,6 +65,7 @@ class Application:
         self.base_url = base_url
         self.config = config
         self.is_logged = False
+        self.driver.implicitly_wait(10)
 
     def navigate_to_home_page(self):
         driver = self.driver
