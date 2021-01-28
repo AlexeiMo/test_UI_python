@@ -37,8 +37,8 @@ class OrderPage(BasePage):
         value="//button[.='Change Billing Address']"
     )
     place_order_button = Find(
-        by=By.XPATH,
-        value="//span[.='Place Order']/.."
+        by=By.CSS_SELECTOR,
+        value="span[data-bind*='placeOrderText']"
     )
 
     print_confirmation_button = Find(
@@ -115,7 +115,7 @@ class OrderPage(BasePage):
             ignored_exceptions=ElementClickInterceptedException,
             timeout=15
         ).until(ec.element_to_be_clickable(
-            (By.XPATH, "//span[.='Place Order']/..")
+            (By.CSS_SELECTOR, "span[data-bind*='placeOrderText']")
         ))
         self.place_order_button.click()
 
@@ -124,7 +124,7 @@ class OrderPage(BasePage):
             (By.XPATH, "//span[.='Contact Customer Support']")
         ))
         WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
-            (By.XPATH, "//span[.='Place Order']/..")
+            (By.CSS_SELECTOR, "span[data-bind*='placeOrderText']")
         ))
         WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
             (By.XPATH, "//button[.='Change Billing Address']")
@@ -133,12 +133,13 @@ class OrderPage(BasePage):
         self.price_before = self.price.text
 
     def wait_for_order_confirmation(self):
-        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
-            (By.XPATH, "//span[.='Contact Customer Support']")
-        ))
         WebDriverWait(self._driver, 15).until(ec.url_contains(
             url="https://ccstore-test-zd3a.oracleoutsourcing.com/us/confirmation/"
         ))
+        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Contact Customer Support']")
+        ))
+
         WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.XPATH, "//h2[.='You Might Also Like']/..")
         ))

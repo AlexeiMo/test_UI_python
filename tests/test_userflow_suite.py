@@ -1,7 +1,6 @@
 import pytest
 
 
-@pytest.mark.error
 @pytest.mark.userflow
 class TestUserflowSuite:
 

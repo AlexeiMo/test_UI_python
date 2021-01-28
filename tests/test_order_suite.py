@@ -1,7 +1,6 @@
 import pytest
 
 
-@pytest.mark.error
 @pytest.mark.order
 class TestOrderSuite:
 
