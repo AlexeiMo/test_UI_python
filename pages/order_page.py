@@ -1,3 +1,4 @@
+from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from webium import BasePage, Find, Finds
 from webium.wait import wait
@@ -56,7 +57,11 @@ class OrderPage(BasePage):
     )
 
     def click_payment_method_button(self):
-        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
+        WebDriverWait(
+            self._driver,
+            ignored_exceptions=StaleElementReferenceException,
+            timeout=15
+        ).until(ec.element_to_be_clickable(
             (By.XPATH, "//span[.='Select New Payment Method']/..")
         ))
         WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
@@ -105,8 +110,13 @@ class OrderPage(BasePage):
         self.change_billing_address_button.click()
 
     def click_place_order_button(self):
-        wait(self.place_order_button.is_displayed)
-
+        WebDriverWait(
+            self._driver,
+            ignored_exceptions=ElementClickInterceptedException,
+            timeout=15
+        ).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Place Order']/..")
+        ))
         self.place_order_button.click()
 
     def wait_for_pdp_loaded(self):
@@ -118,9 +128,6 @@ class OrderPage(BasePage):
         ))
         WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
             (By.XPATH, "//button[.='Change Billing Address']")
-        ))
-        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
-            (By.XPATH, "//span[.='Select New Payment Method']/..")
         ))
         wait(lambda: self.price.text != self.price_before)
         self.price_before = self.price.text

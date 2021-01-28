@@ -45,8 +45,8 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         # Sets a sticky timeout to implicitly wait for an element to be found
-        # self.driver.implicitly_wait(3)
-        webium.settings.wait_timeout = 5
+        self.driver.implicitly_wait(10)
+        webium.settings.wait_timeout = 10
         # Invokes the window manager-specific 'full screen' operation
         LOGGER.info("Expand browser to full screen")
         self.driver.maximize_window()
@@ -65,7 +65,7 @@ class Application:
         self.base_url = base_url
         self.config = config
         self.is_logged = False
-        self.driver.implicitly_wait(10)
+
 
     def navigate_to_home_page(self):
         driver = self.driver
@@ -83,7 +83,7 @@ class Application:
             )
             self.login_actions.submit_credentials()
             self.is_logged = True
-            WebDriverWait(self.driver, 15).until(ec.url_to_be("https://ccstore-test-zd3a.oracleoutsourcing.com/us/home"))
+            # self.home_page_actions.wait_for_home_page_loaded()
 
     def destroy(self):
         # Stop the browser
