@@ -28,7 +28,7 @@ class Application:
             self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
-            # chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--headless')
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--disable-application-cache")
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -70,7 +70,7 @@ class Application:
     def navigate_to_home_page(self):
         driver = self.driver
         driver.get(self.base_url)
-        logo = WebDriverWait(self.driver, 5).until(
+        logo = WebDriverWait(self.driver, 15).until(
             ec.visibility_of_element_located((By.CSS_SELECTOR, "div[class='col-xs-12 tigi-header']")))
         LOGGER.info("Open url '%s'", self.base_url)
 
@@ -83,7 +83,7 @@ class Application:
             )
             self.login_actions.submit_credentials()
             self.is_logged = True
-            WebDriverWait(self.driver, 5).until(ec.url_to_be("https://ccstore-test-zd3a.oracleoutsourcing.com/us/home"))
+            WebDriverWait(self.driver, 15).until(ec.url_to_be("https://ccstore-test-zd3a.oracleoutsourcing.com/us/home"))
 
     def destroy(self):
         # Stop the browser

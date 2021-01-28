@@ -9,6 +9,7 @@ class TestPDPSuite:
     def test_create_review(self, app):
         app.navigate_to_home_page()
         app.authorize()
+        app.home_page_actions.wait_for_home_page_loaded()
         app.home_page_actions.search_item(
             option=app.config["review"]["option"]
         )

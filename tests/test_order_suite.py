@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.error
 @pytest.mark.order
 class TestOrderSuite:
 
@@ -11,6 +12,7 @@ class TestOrderSuite:
             url=app.config["web"]["baseUrl"]
         )
         app.authorize()
+        app.home_page_actions.wait_for_home_page_loaded()
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
@@ -22,7 +24,11 @@ class TestOrderSuite:
         app.shop_actions.open_order_menu()
         app.order_actions.wait_for_pdp_loaded()
         app.order_actions.select_payment_method_option(
-            option_text=app.config["visa_checkout"]["option"]
+            option_text=app.config["po_checkout"]["option"]
         )
-        app.order_actions.set_checkout_options()
+        app.order_actions.fill_in_po_number(
+            po_number=app.config["po_checkout"]["invoice_number"]
+        )
+        # app.order_actions.set_checkout_options()
+        app.order_actions.wait_for_pdp_loaded()
         app.order_summary_actions.verify_order_summary()

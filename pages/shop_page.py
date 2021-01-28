@@ -33,19 +33,19 @@ class ShopPage(BasePage):
     )
 
     def get_dropdown_option(self):
-        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.CSS_SELECTOR, "span[data-bind='text: title']")
         ))
         return self.dropdown_option.text
 
     def get_search_results_product_num(self):
-        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.XPATH, "//div[@class='searchAndSort-container']/div/h1[@class='head_section']")
         ))
         return self.search_results_info.text.split(sep=" ")[0]
 
     def click_buy_product_link(self, index):
-        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.CSS_SELECTOR, "span[data-bind='text: title']")
         ))
         quantity = str(int(self.cart_icon.text) + 1)
@@ -53,7 +53,7 @@ class ShopPage(BasePage):
         wait(lambda: len(self.add_product_links) > 0)
 
         self.add_product_links[index].click()
-        WebDriverWait(self._driver, 10).until(ec.text_to_be_present_in_element(
+        WebDriverWait(self._driver, 15).until(ec.text_to_be_present_in_element(
             (By.CSS_SELECTOR, "span[class='tigi-header__bag-icon__label']"), quantity
         ))
 
@@ -63,11 +63,11 @@ class ShopPage(BasePage):
 
     def click_checkout_button(self):
         url = self._driver.current_url
-        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.XPATH, "//a[.='Checkout']")
         ))
         self.checkout_button.click()
-        WebDriverWait(self._driver, 10).until(ec.url_changes(url))
+        WebDriverWait(self._driver, 15).until(ec.url_changes(url))
 
     def get_actual_product_num(self):
         wait(self.actual_products_num_info.is_displayed)
@@ -75,6 +75,15 @@ class ShopPage(BasePage):
         return actual_product_num
 
     def wait_for_plp_loaded(self):
-        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
+            (By.CSS_SELECTOR, "div[class='product-listing catalog-landing-page']")
+        ))
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.CSS_SELECTOR, "div[class='thumbnail_wrap thumbnails']")
+        ))
+        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Contact Customer Support']")
+        ))
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
+            (By.XPATH, "//h2[.='You Might Also Like']/..")
         ))

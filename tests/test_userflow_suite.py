@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.error
 @pytest.mark.userflow
 class TestUserflowSuite:
 
@@ -8,6 +9,7 @@ class TestUserflowSuite:
     def test_checkout_with_po_number(self, app):
         app.navigate_to_home_page()
         app.authorize()
+        app.home_page_actions.wait_for_home_page_loaded()
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
@@ -24,7 +26,8 @@ class TestUserflowSuite:
         app.order_actions.fill_in_po_number(
             po_number=app.config["po_checkout"]["invoice_number"]
         )
-        app.order_actions.set_checkout_options()
+        # app.order_actions.set_checkout_options()
+        app.order_actions.wait_for_pdp_loaded()
         app.order_actions.accept_order_info()
         app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(
@@ -35,6 +38,7 @@ class TestUserflowSuite:
     def test_checkout_with_visa_card(self, app):
         app.navigate_to_home_page()
         app.authorize()
+        app.home_page_actions.wait_for_home_page_loaded()
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
@@ -48,7 +52,8 @@ class TestUserflowSuite:
         app.order_actions.select_payment_method_option(
             option_text=app.config["visa_checkout"]["option"]
         )
-        app.order_actions.set_checkout_options()
+        # app.order_actions.set_checkout_options()
+        app.order_actions.wait_for_pdp_loaded()
         app.order_actions.accept_order_info()
         app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(
@@ -59,6 +64,7 @@ class TestUserflowSuite:
     def test_checkout_with_new_shipping_address(self, app):
         app.navigate_to_home_page()
         app.authorize()
+        app.home_page_actions.wait_for_home_page_loaded()
         app.home_page_actions.navigate_to_category(
             name=app.config["home_page"]["category_name"]
         )
@@ -70,7 +76,10 @@ class TestUserflowSuite:
         app.shop_actions.open_order_menu()
         app.order_actions.wait_for_pdp_loaded()
         app.order_actions.select_payment_method_option(
-            option_text=app.config["visa_checkout"]["option"]
+            option_text=app.config["po_checkout"]["option"]
+        )
+        app.order_actions.fill_in_po_number(
+            po_number=app.config["po_checkout"]["invoice_number"]
         )
         app.new_address_actions.open_new_address_form()
         app.new_address_actions.fill_in_new_address(
@@ -84,6 +93,7 @@ class TestUserflowSuite:
             country=app.config["new_address"]["country"]
         )
         app.new_address_actions.save_new_address()
+        app.order_actions.wait_for_pdp_loaded()
         app.order_actions.accept_order_info()
         app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(

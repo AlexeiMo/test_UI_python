@@ -78,3 +78,8 @@ class HomePageActions(BasePage, BasePageObject):
                                                                    "Login button is missed."
         assert self.home_page_actions.country_selector.is_displayed(), "Test logout failed." \
                                                                        "Country selector is missed."
+
+    @allure.step("Wait for home page loaded")
+    def wait_for_home_page_loaded(self):
+        LOGGER.info("Wait for home page loaded")
+        self.home_page_actions.wait_for_home_page_loaded()

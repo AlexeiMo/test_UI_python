@@ -48,12 +48,17 @@ class HomePage(BasePage):
         by=By.XPATH,
         value="//div[@class='tigi-header__end-section__top']/g-country-selector"
     )
+    support_button = Find(
+        by=By.XPATH,
+        value="//span[.='Contact Customer Support']"
+    )
+    recommends_icon = Find(
+        by=By.XPATH,
+        value="//h2[.='You Might Also Like']/.."
+    )
 
     def click_category_link(self, name):
-        links = WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(
-            (By.XPATH, "//ul[@class='header__nav-links js-mega-menu-links']/li/a")
-        ))
-        for category in links:
+        for category in self.categories_links:
             if category.text == name:
                 category.click()
                 break
@@ -61,14 +66,9 @@ class HomePage(BasePage):
             raise Exception("No such category found")
 
     def click_subcategory_link(self, name):
-        url = self._driver.current_url
-        links = WebDriverWait(self._driver, 10).until(ec.visibility_of_all_elements_located(
-            (By.XPATH, "//div[@class='shop-links-list']/ul/li/a")
-        ))
-        for subcategory in links:
+        for subcategory in self.subcategories_links:
             if subcategory.text == name:
                 subcategory.click()
-                WebDriverWait(self._driver, 10).until(ec.url_changes(url))
                 break
         else:
             raise Exception("No such subcategory found")
@@ -96,7 +96,15 @@ class HomePage(BasePage):
         self.login_button.click()
 
     def is_invalid_login_message_displayed(self):
-        WebDriverWait(self._driver, 10).until(ec.visibility_of_element_located(
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
             (By.CSS_SELECTOR, "span[data-bind='text: $parent.loginMessage']")
         ))
         return self.invalid_login_message.is_displayed()
+
+    def wait_for_home_page_loaded(self):
+        WebDriverWait(self._driver, 15).until(ec.element_to_be_clickable(
+            (By.XPATH, "//span[.='Contact Customer Support']")
+        ))
+        WebDriverWait(self._driver, 15).until(ec.visibility_of_element_located(
+            (By.XPATH, "//h2[.='You Might Also Like']/..")
+        ))
