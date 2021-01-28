@@ -93,6 +93,7 @@ class TestUserflowSuite:
         )
         app.new_address_actions.save_new_address()
         app.order_actions.wait_for_pdp_loaded()
+        app.driver.get_screenshot_as_file("screenshot.png")
         app.order_actions.accept_order_info()
         app.order_actions.wait_for_order_confirmation()
         app.order_actions.verify_order_confirmation(
