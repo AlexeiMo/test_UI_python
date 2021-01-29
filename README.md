@@ -40,12 +40,16 @@ Run commands in terminal IDE:
 5. pip install -r requirements.txt (install dependencies from requirements.txt file)
 
 
-### Run Project Specific Test (Locally)
+### Run Project Tests (Locally)
 Run commands in terminal IDE:
 1. cd test (go to test folder into the project)
 2. pytest --alluredir=allure-results (run api tests)
 3. allure generate allure-results --clean -o allure-report (generate allure report)
 
+### Run Project Tests (Docker Container)
+Run commands in terminal IDE:
+1. docker build -t ui . (build docker image)
+2. docker run --rm --name ui_test ui (run docker container)
 
 #### target.json
 Requires valid username/password configured in target.json for

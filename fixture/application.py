@@ -1,3 +1,5 @@
+import platform
+
 from seleniumwire import webdriver
 from pathlib import Path
 from selenium.common.exceptions import WebDriverException
@@ -36,10 +38,14 @@ class Application:
             chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
             chrome_options.add_argument('--window-size=1920,1080')
             # chrome_options.add_argument("--log-level=3")
-            driver_folder = Path("../data")
-            file_to_open = str(driver_folder / "chromedriver.exe")
+
+            if platform.system() == "Windows":
+                driver_folder = Path("../data")
+                exec_path = str(driver_folder / "chromedriver.exe")
+            else:
+                exec_path = "/usr/local/bin/chromedriver"
             self.driver = webdriver.Chrome(options=chrome_options,
-                                           executable_path=file_to_open)
+                                           executable_path=exec_path)
         elif browser == "ie":
             self.driver = webdriver.Ie()
         else:
@@ -66,7 +72,6 @@ class Application:
         self.config = config
         self.is_logged = False
 
-
     def navigate_to_home_page(self):
         driver = self.driver
         driver.get(self.base_url)
@@ -83,7 +88,6 @@ class Application:
             )
             self.login_actions.submit_credentials()
             self.is_logged = True
-            # self.home_page_actions.wait_for_home_page_loaded()
 
     def destroy(self):
         # Stop the browser
