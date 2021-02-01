@@ -6,6 +6,7 @@ from pages.shop_page import ShopPage
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from allure import attachment_type
 
 LOGGER = logging.getLogger(__name__)
 
@@ -25,6 +26,7 @@ class ShopActions(BasePage, BasePageObject):
         assert default_option_name == option_name, f"Test verify default sort option failed. " \
                                                    f"Expected default option: {option_name}, " \
                                                    f"Actual default option: {default_option_name}"
+        allure.attach(self.driver.get_screenshot_as_png(), "screenshot", attachment_type.PNG)
 
     @allure.step("Verify search results info")
     def verify_search_results_info(self):
@@ -34,6 +36,7 @@ class ShopActions(BasePage, BasePageObject):
         assert product_num == actual_product_num, f"Test search failed. " \
                                                   f"Expected result product's num: {product_num}, " \
                                                   f"Actual result product's' num: {actual_product_num}"
+        allure.attach(self.driver.get_screenshot_as_png(), "screenshot", attachment_type.PNG)
 
     @allure.step("Wait for PLP loaded")
     def wait_for_plp_loaded(self):
@@ -59,3 +62,4 @@ class ShopActions(BasePage, BasePageObject):
         assert self.driver.current_url == url, f"Test search one item failed. " \
                                                f"Expected url: {url}, " \
                                                f"Actual url: {self.driver.current_url}"
+        allure.attach(self.driver.get_screenshot_as_png(), "screenshot", attachment_type.PNG)

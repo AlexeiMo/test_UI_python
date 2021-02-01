@@ -4,6 +4,7 @@ from webium import BasePage
 from pages.base_page_object import BasePageObject
 from pages.order_page import OrderPage
 import allure
+from allure import attachment_type
 
 LOGGER = logging.getLogger(__name__)
 
@@ -50,6 +51,7 @@ class OrderActions(BasePage, BasePageObject):
         assert url in self.driver.current_url, f"Test create order failed." \
                                                f"Expected url: {url}, " \
                                                f"Actual url: {self.driver.current_url}"
+        allure.attach(self.driver.get_screenshot_as_png(), "screenshot", attachment_type.PNG)
 
     @allure.step("Wait for PDP loaded")
     def wait_for_pdp_loaded(self):

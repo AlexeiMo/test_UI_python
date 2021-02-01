@@ -34,6 +34,11 @@ RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`cu
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 RUN chmod +x /usr/local/bin/chromedriver
 
+# Install allure
+RUN apt-get -y update
+RUN apt-get -y install allure
+
+
 # Set display port to avoid crash
 ENV DISPLAY=:99
 
@@ -42,6 +47,6 @@ WORKDIR tests
 
 COPY . tests
 
-CMD ["pytest"]
-
+CMD ["pytest", "--alluredir=allure-results", "/tests/"]
+#CMD ["allure", "generate", "allure-results", "--clean", "-o", "allure-report"]
 USER root
