@@ -47,6 +47,9 @@ WORKDIR tests
 
 COPY . tests
 
+RUN mkdir allure-results
+RUN mkdir allure-report
+
 CMD ["pytest", "--alluredir=allure-results", "/tests/"]
 #CMD ["allure", "generate", "allure-results", "--clean", "-o", "allure-report"]
 USER root

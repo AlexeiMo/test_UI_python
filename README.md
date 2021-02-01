@@ -51,6 +51,12 @@ Run commands in terminal IDE:
 1. docker build -t ui . (build docker image)
 2. docker run --rm --name ui_test ui (run docker container)
 
+OR
+
+Run commands in terminal IDE:
+1. docker-compose up (creating image and running container)
+2. allure generate allure-results --clean -o allure-report (generate allure report)
+
 #### target.json
 Requires valid username/password configured in target.json for
 Basic authentication and valid email/password for valid login
