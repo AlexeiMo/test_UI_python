@@ -1,3 +1,8 @@
+import functools
+
+import allure
+from allure import attachment_type
+
 from fixture.application import Application
 import pytest
 import json
@@ -42,3 +47,16 @@ def stop(request):
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
     parser.addoption("--target", action="store", default="target.json")
+
+
+def capture_screenshot(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except:
+            allure.attach(kwargs['app'].driver.get_screenshot_as_png(), 'Screenshot',
+                          attachment_type=attachment_type.PNG)
+            raise
+
+    return wrapper
