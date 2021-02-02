@@ -7,4 +7,4 @@ services:
       dockerfile: Dockerfile
     volumes:
     - ./:/tests
-    - ./report/allure-results/:/tests/allure-results
+    - ./allure-results/:/tests/allure-results
