@@ -1,9 +1,12 @@
 import pytest
 
+from conftest import capture_screenshot
+
 
 @pytest.mark.userflow
 class TestUserflowSuite:
 
+    @capture_screenshot
     @pytest.mark.tcid2
     def test_checkout_with_po_number(self, app):
         app.navigate_to_home_page()
@@ -33,6 +36,7 @@ class TestUserflowSuite:
             url=app.config["order"]["confirmation_page_url"]
         )
 
+    @capture_screenshot
     @pytest.mark.tcid3
     def test_checkout_with_visa_card(self, app):
         app.navigate_to_home_page()
@@ -59,6 +63,7 @@ class TestUserflowSuite:
             url=app.config["order"]["confirmation_page_url"]
         )
 
+    @capture_screenshot
     @pytest.mark.tcid4
     def test_checkout_with_new_shipping_address(self, app):
         app.navigate_to_home_page()

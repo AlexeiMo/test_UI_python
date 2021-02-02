@@ -1,10 +1,13 @@
 import pytest
-
+from conftest import capture_screenshot
 
 # PDP - Product Detail Page
+
+
 @pytest.mark.pdp
 class TestPDPSuite:
 
+    @capture_screenshot
     @pytest.mark.tcid36
     def test_create_review(self, app):
         app.navigate_to_home_page()

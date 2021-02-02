@@ -1,9 +1,12 @@
 import pytest
 
+from conftest import capture_screenshot
+
 
 @pytest.mark.search
 class TestSearchSuite:
 
+    @capture_screenshot
     @pytest.mark.tcid50
     def test_search_one_item(self, app):
         app.navigate_to_home_page()

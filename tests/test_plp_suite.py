@@ -1,10 +1,13 @@
 import pytest
-
+from conftest import capture_screenshot
 
 # PLP - Product Listing Page
+
+
 @pytest.mark.plp
 class TestPLPSuite:
 
+    @capture_screenshot
     @pytest.mark.tcid6
     def test_default_sort_option(self, app):
         app.navigate_to_home_page()
@@ -21,6 +24,7 @@ class TestPLPSuite:
             option_name=app.config["shop"]["default_option"]
         )
 
+    @capture_screenshot
     @pytest.mark.tcid12
     def test_search(self, app):
         app.navigate_to_home_page()

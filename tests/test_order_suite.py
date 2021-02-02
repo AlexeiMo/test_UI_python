@@ -1,9 +1,12 @@
 import pytest
 
+from conftest import capture_screenshot
+
 
 @pytest.mark.order
 class TestOrderSuite:
 
+    @capture_screenshot
     @pytest.mark.tcid360
     def test_verify_order_summary(self, app):
         app.navigate_to_home_page()
