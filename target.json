@@ -3,12 +3,12 @@
     "baseUrl": "https://ccstore-test-zd3a.oracleoutsourcing.com/"
   },
   "basic_auth": {
-    "username": "admin",
-    "password": "tigi@2021!"
+    "username": "",
+    "password": ""
   },
   "login": {
-    "email": "acc345occ+us001@gmail.com",
-    "password": "1qaz!QAZ@WSX",
+    "email": "",
+    "password": "",
     "wrong_email": "testtest@test.com",
     "wrong_password": "test_password"
   },
